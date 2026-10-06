@@ -1,9 +1,1189 @@
-<html>
-    <head>
-        <title></title>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <body>
-        <p>Hello World!</p>
-    </body>
+    <title>ContactHub | Contact Management</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #dbeafe 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #ede9fe 0%, transparent 35%),
+                #f5f7fb;
+            color: #1e293b;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        header {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2563eb, #4f46e5, #7c3aed);
+            color: white;
+            padding: 35px;
+            border-radius: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.25);
+        }
+
+        header::before,
+        header::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        header::before {
+            width: 180px;
+            height: 180px;
+            right: -60px;
+            top: -80px;
+        }
+
+        header::after {
+            width: 120px;
+            height: 120px;
+            right: 120px;
+            bottom: -70px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 17px;
+            opacity: 0.9;
+        }
+
+        .header-badge {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 13px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 22px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+            transition: 0.25s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .blue {
+            background: #dbeafe;
+        }
+
+        .purple {
+            background: #ede9fe;
+        }
+
+        .green {
+            background: #dcfce7;
+        }
+
+        .stat-card h3 {
+            font-size: 25px;
+            color: #0f172a;
+        }
+
+        .stat-card p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* MAIN GRID */
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.94);
+            padding: 25px;
+            border-radius: 22px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .card-title h2 {
+            font-size: 21px;
+            color: #1e293b;
+        }
+
+        .card-title span {
+            font-size: 24px;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 11px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus {
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #6366f1);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 7px 18px rgba(79, 70, 229, 0.25);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(79, 70, 229, 0.35);
+        }
+
+        .cancel-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #f1f5f9;
+            color: #475569;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* MESSAGE */
+
+        .message {
+            margin-top: 15px;
+            padding: 11px 13px;
+            border-radius: 10px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* SEARCH */
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            width: 230px;
+            padding: 11px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: #6366f1;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        th {
+            color: #64748b;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-align: left;
+            padding: 10px 12px;
+        }
+
+        td {
+            background: #f8fafc;
+            padding: 13px 12px;
+            font-size: 13px;
+        }
+
+        tbody tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover td {
+            background: #eef2ff;
+        }
+
+        tbody td:first-child {
+            border-radius: 10px 0 0 10px;
+            font-weight: 600;
+            color: #4f46e5;
+        }
+
+        tbody td:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 7px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        .edit-btn {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: #94a3b8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 25px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .list-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="header-content">
+
+            <h1>📇 ContactHub</h1>
+
+            <p>
+                Manage your personal and professional contacts
+                easily and securely.
+            </p>
+
+            <div class="header-badge">
+                ✨ Node.js • Express • MongoDB
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+                👥
+            </div>
+
+            <div>
+                <h3 id="totalContacts">0</h3>
+                <p>Total Contacts</p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+                📧
+            </div>
+
+            <div>
+                <h3 id="emailCount">0</h3>
+                <p>Email Contacts</p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+                📱
+            </div>
+
+            <div>
+                <h3 id="phoneCount">0</h3>
+                <p>Phone Contacts</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="main-grid">
+
+
+        <!-- ADD CONTACT -->
+
+        <div class="card">
+
+            <div class="card-title">
+
+                <span>➕</span>
+
+                <h2>Add New Contact</h2>
+
+            </div>
+
+
+            <form id="contactForm">
+
+                <div class="form-group">
+
+                    <label for="contactId">
+                        Contact ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="contactId"
+                        placeholder="Example: 24BAD015"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        maxlength="10"
+                        placeholder="10 digit number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="example@gmail.com"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="submitBtn"
+                >
+                    ➕ Add Contact
+                </button>
+
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    id="cancelBtn"
+                    onclick="cancelEdit()"
+                >
+                    Cancel Edit
+                </button>
+
+            </form>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+        </div>
+
+
+        <!-- CONTACT LIST -->
+
+        <div class="card">
+
+            <div class="list-header">
+
+                <div class="card-title" style="margin-bottom:0;">
+
+                    <span>📋</span>
+
+                    <h2>Contact List</h2>
+
+                </div>
+
+
+                <input
+                    type="text"
+                    id="searchBox"
+                    class="search-box"
+                    placeholder="🔍 Search contacts..."
+                    oninput="searchContacts()"
+                >
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Contact ID</th>
+
+                            <th>Name</th>
+
+                            <th>Phone</th>
+
+                            <th>Email</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="contactsTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="empty"
+                            >
+                                Loading contacts...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        ContactHub © 2026 | Contact Management System
+
+    </footer>
+
+</div>
+
+
+<script>
+
+    const contactForm =
+        document.getElementById("contactForm");
+
+    const message =
+        document.getElementById("message");
+
+    const contactsTableBody =
+        document.getElementById("contactsTableBody");
+
+    const submitBtn =
+        document.getElementById("submitBtn");
+
+    const cancelBtn =
+        document.getElementById("cancelBtn");
+
+    let allContacts = [];
+
+    let editingContactId = null;
+
+
+    /* SHOW MESSAGE */
+
+    function showMessage(text, type) {
+
+        message.textContent = text;
+
+        message.className = "message " + type;
+
+        message.style.display = "block";
+
+        setTimeout(() => {
+
+            message.style.display = "none";
+
+        }, 4000);
+
+    }
+
+
+    /* ADD / UPDATE CONTACT */
+
+    contactForm.addEventListener(
+        "submit",
+        async function (e) {
+
+            e.preventDefault();
+
+
+            const contact = {
+
+                contactId:
+                    document.getElementById("contactId").value.trim(),
+
+                name:
+                    document.getElementById("name").value.trim(),
+
+                phone:
+                    document.getElementById("phone").value.trim(),
+
+                email:
+                    document.getElementById("email").value.trim()
+
+            };
+
+
+            try {
+
+                let url = "/contacts";
+
+                let method = "POST";
+
+
+                if (editingContactId) {
+
+                    url =
+                        "/contacts/" +
+                        editingContactId;
+
+                    method = "PUT";
+
+                }
+
+
+                const response =
+                    await fetch(url, {
+
+                        method: method,
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(contact)
+
+                    });
+
+
+                const text =
+                    await response.text();
+
+
+                if (!response.ok) {
+
+                    throw new Error(text);
+
+                }
+
+
+                if (editingContactId) {
+
+                    showMessage(
+                        "✅ Contact updated successfully!",
+                        "success"
+                    );
+
+                } else {
+
+                    showMessage(
+                        "🎉 Contact added successfully!",
+                        "success"
+                    );
+
+                }
+
+
+                contactForm.reset();
+
+                editingContactId = null;
+
+                submitBtn.innerHTML =
+                    "➕ Add Contact";
+
+                cancelBtn.style.display =
+                    "none";
+
+
+                loadContacts();
+
+            }
+
+            catch (error) {
+
+                showMessage(
+                    "❌ " + error.message,
+                    "error"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* LOAD CONTACTS */
+
+    async function loadContacts() {
+
+        try {
+
+            const response =
+                await fetch("/contacts");
+
+
+            const text =
+                await response.text();
+
+
+            if (!response.ok) {
+
+                throw new Error(text);
+
+            }
+
+
+            allContacts =
+                JSON.parse(text);
+
+
+            displayContacts(allContacts);
+
+            updateStats();
+
+        }
+
+        catch (error) {
+
+            contactsTableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+                        ❌ Unable to load contacts
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+
+    /* DISPLAY CONTACTS */
+
+    function displayContacts(contacts) {
+
+        contactsTableBody.innerHTML = "";
+
+
+        if (contacts.length === 0) {
+
+            contactsTableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+                        📭 No contacts found
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        contacts.forEach(contact => {
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${contact.contactId}
+                </td>
+
+                <td>
+                    ${contact.name}
+                </td>
+
+                <td>
+                    📱 ${contact.phone}
+                </td>
+
+                <td>
+                    ✉️ ${contact.email}
+                </td>
+
+                <td>
+
+                    <button
+                        class="action-btn edit-btn"
+                        onclick="editContact('${contact.contactId}')"
+                    >
+                        ✏️ Edit
+                    </button>
+
+                    <button
+                        class="action-btn delete-btn"
+                        onclick="deleteContact('${contact.contactId}')"
+                    >
+                        🗑️ Delete
+                    </button>
+
+                </td>
+
+            `;
+
+
+            contactsTableBody.appendChild(row);
+
+        });
+
+    }
+
+
+    /* SEARCH */
+
+    function searchContacts() {
+
+        const search =
+            document
+                .getElementById("searchBox")
+                .value
+                .toLowerCase();
+
+
+        const filtered =
+            allContacts.filter(contact =>
+
+                contact.contactId
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                contact.name
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                contact.phone
+                    .includes(search)
+
+                ||
+
+                contact.email
+                    .toLowerCase()
+                    .includes(search)
+
+            );
+
+
+        displayContacts(filtered);
+
+    }
+
+
+    /* UPDATE STATISTICS */
+
+    function updateStats() {
+
+        document.getElementById(
+            "totalContacts"
+        ).textContent =
+            allContacts.length;
+
+
+        document.getElementById(
+            "emailCount"
+        ).textContent =
+            allContacts.filter(
+                contact => contact.email
+            ).length;
+
+
+        document.getElementById(
+            "phoneCount"
+        ).textContent =
+            allContacts.filter(
+                contact => contact.phone
+            ).length;
+
+    }
+
+
+    /* EDIT CONTACT */
+
+    function editContact(contactId) {
+
+        const contact =
+            allContacts.find(
+                c => c.contactId === contactId
+            );
+
+
+        if (!contact) {
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "contactId"
+        ).value =
+            contact.contactId;
+
+
+        document.getElementById(
+            "name"
+        ).value =
+            contact.name;
+
+
+        document.getElementById(
+            "phone"
+        ).value =
+            contact.phone;
+
+
+        document.getElementById(
+            "email"
+        ).value =
+            contact.email;
+
+
+        editingContactId =
+            contactId;
+
+
+        submitBtn.innerHTML =
+            "💾 Update Contact";
+
+
+        cancelBtn.style.display =
+            "block";
+
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+    /* CANCEL EDIT */
+
+    function cancelEdit() {
+
+        editingContactId = null;
+
+        contactForm.reset();
+
+        submitBtn.innerHTML =
+            "➕ Add Contact";
+
+        cancelBtn.style.display =
+            "none";
+
+    }
+
+
+    /* DELETE CONTACT */
+
+    async function deleteContact(contactId) {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this contact?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/contacts/" + contactId,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+
+            const text =
+                await response.text();
+
+
+            if (!response.ok) {
+
+                throw new Error(text);
+
+            }
+
+
+            showMessage(
+                "🗑️ Contact deleted successfully!",
+                "success"
+            );
+
+
+            loadContacts();
+
+        }
+
+        catch (error) {
+
+            showMessage(
+                "❌ " + error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    /* INITIAL LOAD */
+
+    loadContacts();
+
+</script>
+
+</body>
 </html>

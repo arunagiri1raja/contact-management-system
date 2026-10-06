@@ -10,6 +10,7 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.log('MongoDB connection error:', err));
 
 app.use(express.json());
+app.use(express.static(__dirname));
 app.use('/contacts', contactRoutes);
 
 const routes = require('./routes'); // Import the routes
